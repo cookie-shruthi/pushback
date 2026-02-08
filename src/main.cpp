@@ -60,7 +60,7 @@ void initialize() {
   ez::as::auton_selector.autons_add({
       //{"center blocks\n\nto long goal(3)", left_auton_1}, //uncomment later
       //{"right center blocks\n\nto long goal(3)", right_auton_1},
-      {"skills auton 1 - full skills", skills_auton_1},
+      {"TESTING GITHUB CHANGE\nskills auton 1 - full skills", skills_auton_1},
       //{"skills auton 2 - park; \nadd rubber band to back of bot!!", skills_auton_2},
       //{"NEW left match auton \nbot 12 inches from back", left_auton_4},
       //{"NEW right match auton \nbot 12 inches from back", right_auton_4},
