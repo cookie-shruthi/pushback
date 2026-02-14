@@ -58,6 +58,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+
+      //{"clog tester!", clog_tester_auton},
       //{"center blocks\n\nto long goal(3)", left_auton_1}, //uncomment later
       //{"right center blocks\n\nto long goal(3)", right_auton_1},
       {"TESTING GITHUB CHANGE\nskills auton 1 - full skills", skills_auton_1},
@@ -75,17 +77,34 @@ void initialize() {
   master.rumble(chassis.drive_imu_calibrated() ? "." : "---");
 }
 /*
-//intake clog checker
-void intake_clog(int milliseconds){
+//conveyor clog checker
+void conveyor_clog(int desired){
   //runtime variable
+  int runtime = 0;
 
   //run intake
+  while (runtime < desired) {
+    //run intake
+    conveyor.move(127);
 
-  //check clog
+    pros::delay(300);
+    runtime += 300;
 
-  //i
+    //check if clogged
+    if (conveyor.get_actual_velocity() <= 5) {
+      //reverse intake
+      conveyor.move(-127);
+
+      pros::delay(300);
+      runtime += 300;
+    }
+  }
+
+  //stop motors
+  conveyor.move(0);
 }
 */
+
 
 /**
  * Runs while the robot is in the disabled state of Field Management System or
