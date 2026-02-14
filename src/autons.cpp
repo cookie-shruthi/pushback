@@ -48,6 +48,33 @@ void default_constants() {
   chassis.pid_angle_behavior_set(ez::shortest);  // Changes the default behavior for turning, this defaults it to the shortest path there
 }
 
+//conveyor clog checker
+void conveyor_clog(int desired){
+  //runtime variable
+  int runtime = 0;
+
+  //run intake
+  while (runtime < desired) {
+    //run intake
+    conveyor.move(127);
+
+    pros::delay(300);
+    runtime += 300;
+
+    //check if clogged
+    if (conveyor.get_actual_velocity() <= 5) {
+      //reverse intake
+      conveyor.move(-127);
+
+      pros::delay(300);
+      runtime += 300;
+    }
+  }
+
+  //stop motors
+  conveyor.move(0);
+}
+
 ///
 // Drive Example
 ///
@@ -470,6 +497,8 @@ void skills_auton_1() {
   chassis.pid_wait();
 
   //intake from matchloader
+  conveyor_clog(6000);
+  /*
   conveyor.move (127);
   pros::delay (3000); // picked up from first match loader
 
@@ -478,6 +507,7 @@ void skills_auton_1() {
 
   conveyor.move (127);
   pros::delay (1500);
+  */
 
   chassis.pid_drive_set(-15_in, 63.5);
   chassis.pid_wait();
@@ -485,10 +515,10 @@ void skills_auton_1() {
   chassis.pid_turn_set(180_deg, 60);
   chassis.pid_wait();
 
-  scraper.set (false);
-  pros::delay (1000);
+  //scraper.set (false); might help with getting all blocks
+  //pros::delay (1000);
 
-  conveyor.move (0);
+  //conveyor.move (0);
 
   //drive to other side
   //chassis.pid_turn_relative_set(180, 60);
@@ -507,8 +537,9 @@ void skills_auton_1() {
   chassis.pid_wait();
 
   pros::delay (500);
-  chassis.pid_drive_set(-18_in, 63.5);
+  chassis.pid_drive_set(-15.5_in, 63.5); //og -18 -2/12
   chassis.pid_wait();
+
   conveyor.move (127); //scoreTop
   middle.move (127); //scoreTop
   outtake.move (127); //scoreTop
@@ -520,7 +551,7 @@ void skills_auton_1() {
   pros::delay(1300);
 
   //prep for matchloader
-  scraper.set (true);
+  //scraper.set (true); removed b/c never closed above
   pros::delay (3000);
   conveyor.move (0); //stopAll
   middle.move (0); //stopAll
@@ -531,11 +562,11 @@ void skills_auton_1() {
   chassis.pid_wait();
   chassis.pid_turn_set(270, 60);
   chassis.pid_wait();
-  chassis.pid_drive_set(22_in, 63.5); //going to match loader 2 pt2
+  chassis.pid_drive_set(23_in, 63.5); //going to match loader 2 pt2; og 22 -2/12
   chassis.pid_wait();
 
   //intake from matchloader
-
+/*
   conveyor.move (127);
   pros::delay (3000); // picked up from first match loader
   conveyor.move (-127);
@@ -543,6 +574,9 @@ void skills_auton_1() {
   conveyor.move (127);
   pros::delay (1500);
   conveyor.move (0);
+*/
+
+  conveyor_clog(6000); //og 2300
 
   //drive to long goal
   chassis.pid_drive_set(-27_in, 63.5); //backing to goal to score match loader 2
@@ -564,6 +598,23 @@ void skills_auton_1() {
   outtake.move (0); //stopAll
   pros::delay (500);
 
+  conveyor.move (127); 
+  middle.move (127);
+  outtake.move (127);//outtake parking blocks
+
+  //NEW PARKING
+  chassis.pid_drive_set(8_in, 63.5);
+  chassis.pid_wait();
+  chassis.pid_turn_set(225_deg, 60);
+  chassis.pid_wait();
+  chassis.pid_drive_set(31_in, 63.5);
+  chassis.pid_wait();
+  chassis.pid_turn_set(185_deg, 60);
+  chassis.pid_wait();
+  chassis.pid_drive_set(40_in, 80);
+  chassis.pid_wait();
+
+  /* OLD PARKING
   //prep for parking
   chassis.pid_drive_set(8_in, 63.5);
   chassis.pid_wait();
@@ -586,17 +637,28 @@ void skills_auton_1() {
   //chassis.pid_wait();
   chassis.pid_drive_set(-40_in, 110);//63.5
   chassis.pid_wait();
+  */
 }
 
 void skills_auton_2() {
-  master.print(0, 0, "abc");
-  /*
+  /*master.print(0, 0, "abc");
+
   chassis.pid_drive_set(-26_in, 90);
   chassis.pid_wait();
-  */
+
   conveyor.move(127);
   middle.move(127);
   outtake.move(127);
   chassis.pid_drive_set(26_in, 90);
+  chassis.pid_wait();*/
+
+}
+
+void clog_tester_auton() {
+  scraper.set(true);
+  pros::delay(200);
+
+  chassis.pid_drive_set(10_in, 60);
   chassis.pid_wait();
+  conveyor_clog(8000);
 }
