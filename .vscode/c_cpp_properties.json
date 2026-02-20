@@ -4,14 +4,15 @@
       "name": "PROS Project",
       "includePath": [
         "${workspaceFolder}/**",
-        "/Users/stellazeng/Documents/vex-vscode-projects/pushback/include"
+        "/Users/stellazeng/Documents/vex-vscode-projects/pushback/include",
+        "/Users/Shruthi/Documents/vex-vscode-projects/galaxy-pushback/pushback/include"
       ],
       "defines": [
         "_DEBUG",
         "UNICODE",
         "_UNICODE"
       ],
-      "compilerPath": "/Users/stellazeng/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
+      "compilerPath": "/Users/Shruthi/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
       "cStandard": "gnu11",
       "cppStandard": "gnu++20",
       "intelliSenseMode": "gcc-arm",
@@ -20,7 +21,7 @@
       ],
       "browse": {
         "path": [
-          "/Users/stellazeng/Documents/vex-vscode-projects/pushback"
+          "/Users/Shruthi/Documents/vex-vscode-projects/galaxy-pushback/pushback"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""
